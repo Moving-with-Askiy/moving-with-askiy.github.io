@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — Moving with Askiy</title>
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <img class="brand__logo" src="images/logo.png" alt="Moving with Askiy logo: a feather and mountain inside a circle, in a purple-to-blue gradient">
+      <span class="brand__text-lines">
+        Moving with Askiy
+        <small>askiy &middot; land</small>
+      </span>
+    </a>
+    <nav class="main-nav" id="primary-navigation" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero text-center">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>This trail doesn't lead anywhere</h1>
+      <p class="lede" style="margin-inline:auto;">The page you're looking for has wandered off. Let's get you back on the path.</p>
+      <p style="margin-top:2rem;"><a class="btn btn--on-dark" href="index.html">Return Home</a></p>
+    </div>
+  </section>
+
+  <!-- Mailing list sign-up ------------------------------------------------ -->
+  <section class="signup" id="join" aria-labelledby="signup-title">
+    <div class="container">
+      <h2 id="signup-title">Join our mailing list</h2>
+      <p class="signup__lede">Get news about programs and events across Treaty&nbsp;6 &amp; Treaty&nbsp;8 territory, straight to your inbox.</p>
+      <form class="signup__form" data-signup novalidate>
+        <div class="signup__row">
+          <div>
+            <label for="signup-name">First name</label>
+            <input id="signup-name" name="firstName" type="text" autocomplete="given-name" maxlength="60" required aria-describedby="signup-name-error">
+            <p class="signup__error" id="signup-name-error" hidden></p>
+          </div>
+          <div>
+            <label for="signup-email">Email address</label>
+            <input id="signup-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-describedby="signup-email-error">
+            <p class="signup__error" id="signup-email-error" hidden></p>
+          </div>
+        </div>
+        <div class="signup__hp" aria-hidden="true">
+          <label>Leave this field empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <label class="signup__consent" for="signup-consent">
+          <input id="signup-consent" name="consent" type="checkbox" required aria-describedby="signup-consent-error">
+          <span class="signup__consent-text">Yes, I'd like to receive emails from Moving with Askiy about programs and events. I can unsubscribe at any time.</span>
+        </label>
+        <p class="signup__error" id="signup-consent-error" hidden></p>
+        <div class="signup__actions">
+          <button class="btn btn--on-dark" type="submit">Subscribe</button>
+          <p class="signup__status" role="status" aria-live="polite" hidden></p>
+          <p class="signup__fineprint">We'll email you a link to confirm your address. Your details are used only for Moving with Askiy updates.</p>
+        </div>
+      </form>
+      <p class="signup__success" role="status" tabindex="-1" hidden></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; <span id="year">2026</span> Moving with Askiy. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

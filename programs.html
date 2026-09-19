@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programs — Moving with Askiy</title>
+<meta name="description" content="Moving with Askiy is building land-based programs across Treaty 6 & 8 territory, designed to remove barriers to Indigenous outdoor participation.">
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <img class="brand__logo" src="images/logo.png" alt="Moving with Askiy logo: a feather and mountain inside a circle, in a purple-to-blue gradient">
+      <span class="brand__text-lines">
+        Moving with Askiy
+        <small>askiy &middot; land</small>
+      </span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Toggle navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="main-nav" id="primary-navigation" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="events.html">Events</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Programs</p>
+      <h1>Land-based programs, open to everyone</h1>
+      <p class="lede">Every activity we run will be designed to remove barriers &mdash; cost, transportation, experience, or confidence &mdash; so the only thing you need to bring is yourself.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow eyebrow--dark">Coming Soon</p>
+        <h2>Building Our Program Lineup</h2>
+        <p>We're currently designing our land-based programs for Treaty 6 &amp; 8 territory in partnership with community and Knowledge Keepers.</p>
+      </div>
+      <div class="placeholder-note" data-reveal>
+        <strong>Placeholder content:</strong> This page is a basic structure for
+        now. Program details &mdash; activities, schedules, locations, and
+        accessibility information &mdash; will be added here once finalized.
+      </div>
+    </div>
+  </section>
+
+  <!-- Mailing list sign-up ------------------------------------------------ -->
+  <section class="signup" id="join" aria-labelledby="signup-title">
+    <div class="container">
+      <h2 id="signup-title">Join our mailing list</h2>
+      <p class="signup__lede">Get news about programs and events across Treaty&nbsp;6 &amp; Treaty&nbsp;8 territory, straight to your inbox.</p>
+      <form class="signup__form" data-signup novalidate>
+        <div class="signup__row">
+          <div>
+            <label for="signup-name">First name</label>
+            <input id="signup-name" name="firstName" type="text" autocomplete="given-name" maxlength="60" required aria-describedby="signup-name-error">
+            <p class="signup__error" id="signup-name-error" hidden></p>
+          </div>
+          <div>
+            <label for="signup-email">Email address</label>
+            <input id="signup-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-describedby="signup-email-error">
+            <p class="signup__error" id="signup-email-error" hidden></p>
+          </div>
+        </div>
+        <div class="signup__hp" aria-hidden="true">
+          <label>Leave this field empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <label class="signup__consent" for="signup-consent">
+          <input id="signup-consent" name="consent" type="checkbox" required aria-describedby="signup-consent-error">
+          <span class="signup__consent-text">Yes, I'd like to receive emails from Moving with Askiy about programs and events. I can unsubscribe at any time.</span>
+        </label>
+        <p class="signup__error" id="signup-consent-error" hidden></p>
+        <div class="signup__actions">
+          <button class="btn btn--on-dark" type="submit">Subscribe</button>
+          <p class="signup__status" role="status" aria-live="polite" hidden></p>
+          <p class="signup__fineprint">We'll email you a link to confirm your address. Your details are used only for Moving with Askiy updates.</p>
+        </div>
+      </form>
+      <p class="signup__success" role="status" tabindex="-1" hidden></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="images/logo.png" alt="Moving with Askiy logo">
+          <span>Moving with Askiy</span>
+        </div>
+        <p>Removing barriers to Indigenous outdoor participation across Treaty 6 &amp; 8 territory.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@movingwithaskiy.com">info@movingwithaskiy.com</a></li>
+          <li>Treaty 6 &amp; 8 Territory</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year">2026</span> Moving with Askiy. All rights reserved.</p>
+      <p>Built with respect, on the land.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
