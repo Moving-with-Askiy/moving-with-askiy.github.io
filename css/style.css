@@ -307,6 +307,36 @@ ul, ol { padding-left: 1.3em; }
   opacity: 0.5;
   pointer-events: none;
 }
+/* Photo headers: each page gets its own landscape photo (images/heroes/) under
+   the same dark overlay as the home hero, heaviest on the left where the text
+   sits, so the white copy keeps AA contrast. The gradient stays underneath as
+   the fallback while the photo loads. background-position's second value is
+   the photo's focal point inside the wide, short banner. */
+.page-hero--photo {
+  --hero-overlay: linear-gradient(90deg, rgba(36, 27, 48, 0.8) 0%, rgba(36, 27, 48, 0.58) 60%, rgba(36, 27, 48, 0.42) 100%);
+  background-color: var(--purple-deep);
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* Taller than the plain header so more of each photo shows; the text sits
+     centred vertically in the extra space. */
+  min-height: clamp(480px, 75vh, 820px);
+  display: flex;
+  align-items: center;
+  padding: 5.5rem 0 5rem;
+}
+.page-hero--photo > .container { width: 100%; }
+.page-hero--photo::after { display: none; }
+/* Centered headers (404) get an even overlay instead of the left-weighted one. */
+.page-hero--photo.text-center { --hero-overlay: linear-gradient(rgba(36, 27, 48, 0.62), rgba(36, 27, 48, 0.62)); }
+@media (max-width: 860px) {
+  .page-hero--photo { --hero-overlay: linear-gradient(rgba(36, 27, 48, 0.68), rgba(36, 27, 48, 0.68)); }
+}
+.page-hero--about        { background-image: var(--hero-overlay), url("../images/heroes/about.jpg");        background-position: center, center 72%; }
+.page-hero--programs     { background-image: var(--hero-overlay), url("../images/heroes/programs.jpg");     background-position: center, center 58%; }
+.page-hero--get-involved { background-image: var(--hero-overlay), url("../images/heroes/get-involved.jpg"); background-position: center, center 68%; }
+.page-hero--contact      { background-image: var(--hero-overlay), url("../images/heroes/contact.jpg");      background-position: center, center 50%; }
+.page-hero--404          { background-image: var(--hero-overlay), url("../images/heroes/404.jpg");          background-position: center, center 58%; }
+
 .page-hero .container { position: relative; z-index: 1; }
 .page-hero h1 { color: #fff; margin-bottom: 0.4em; }
 .page-hero p.lede {
@@ -346,7 +376,8 @@ ul, ol { padding-left: 1.3em; }
   grid-template-columns: 1.15fr 0.85fr;
   gap: 3rem;
   align-items: center;
-  padding-bottom: 4rem;
+  /* Extra room at the bottom because the quick-nav cards overlap the hero. */
+  padding-bottom: 6rem;
 }
 .hero__logo-wrap {
   display: flex;
@@ -402,8 +433,11 @@ ul, ol { padding-left: 1.3em; }
 }
 .quick-nav__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.1rem;
+}
+@media (max-width: 1024px) {
+  .quick-nav__grid { grid-template-columns: repeat(2, 1fr); }
 }
 .quick-nav__card {
   background: var(--surface);
@@ -436,6 +470,8 @@ ul, ol { padding-left: 1.3em; }
 
 @media (max-width: 860px) {
   .quick-nav { margin-top: -2rem; }
+}
+@media (max-width: 560px) {
   .quick-nav__grid { grid-template-columns: 1fr; }
 }
 
@@ -450,6 +486,9 @@ ul, ol { padding-left: 1.3em; }
   text-align: center;
 }
 .section__head p { color: var(--ink-soft); font-size: 1.08rem; }
+/* Large section titles (Events & Programs page). */
+.section-title { font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1.05; margin-bottom: 0.35em; }
+.section-subtitle { font-size: clamp(1.2rem, 2.2vw, 1.5rem); color: var(--accent); margin-bottom: 0.6em; }
 .section__head.align-left { margin-inline: 0; text-align: left; }
 
 /* Mission statement: long-form copy, left-aligned for readability. */
@@ -736,6 +775,65 @@ ul, ol { padding-left: 1.3em; }
 .team-card .role { color: var(--accent); font-weight: 700; font-size: 0.88rem; margin-bottom: 0.6rem; }
 .team-card p.bio { font-size: 0.92rem; color: var(--ink-soft); margin: 0; }
 
+/* Leadership profiles, modelled on the Soul of Miistaki team page: one person
+   per row, each on its own dark panel that stands out from the plum page,
+   with a large photo on the left and the name (with pronouns), role, and bio
+   on the right. */
+.profile-list {
+  --panel-bg: #1c1426;
+  --panel-ink: var(--ink);
+  --panel-ink-soft: var(--ink-soft);
+  display: grid;
+  gap: 2.5rem;
+}
+.profile {
+  display: grid;
+  grid-template-columns: 298px minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4.75rem);
+  align-items: start;
+  background: var(--panel-bg);
+  color: var(--panel-ink);
+  padding: clamp(1.5rem, 6vw, 5.5rem) clamp(1.25rem, 4vw, 4rem);
+  box-shadow: var(--shadow);
+}
+/* Every headshot displays at a fixed 298 x 479 (files are cropped to that
+   shape at 2x for sharpness on high-density screens). */
+.profile__photo {
+  width: 298px;
+  height: 479px;
+  object-fit: cover;
+}
+.profile__body { padding-top: clamp(0rem, 1.5vw, 1.5rem); }
+.profile__header { margin-bottom: 0.4rem; }
+.profile h3 {
+  margin: 0 0 clamp(1rem, 2.5vw, 2.25rem);
+  color: var(--panel-ink);
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.profile__pronouns { font-weight: inherit; }
+.profile__role {
+  margin: 0;
+  color: var(--accent);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+  line-height: 1.3;
+}
+.profile p.bio {
+  margin: 0;
+  color: var(--panel-ink-soft);
+  font-size: clamp(0.95rem, 1.2vw, 1.08rem);
+  line-height: 1.9;
+}
+.profile p.bio + p.bio { margin-top: 1.1rem; }
+
+@media (max-width: 600px) {
+  .profile { grid-template-columns: 1fr; }
+  .profile__photo { max-width: 100%; height: auto; aspect-ratio: 298 / 479; }
+}
+
 .placeholder-note {
   border: 1.5px dashed var(--purple);
   background: var(--gradient-soft);
@@ -838,6 +936,174 @@ textarea { resize: vertical; min-height: 140px; }
 .contact-card a { color: #fff; }
 .contact-card ul { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: 0.9rem; }
 .contact-card li { display: flex; gap: 0.7rem; align-items: flex-start; }
+.contact-card__more { margin: 1.6rem 0 0; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.3); }
+
+/* Contact form (contact.html) ---------------------------------------------- */
+.contact-form { margin-top: 1.4rem; }
+.contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 640px) {
+  .contact-form__row { grid-template-columns: 1fr; }
+}
+.contact-form__field { margin-bottom: 1.1rem; }
+.contact-form__optional { font-weight: 400; color: var(--ink-soft); }
+.contact-form__error,
+.contact-form__status.is-error {
+  margin: 0.45rem 0 0;
+  color: #ffb3bd;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+.contact-form__error[hidden],
+.contact-form__status[hidden],
+.contact-form__success[hidden] { display: none; }
+.contact-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+.contact-form__actions p { margin: 0; }
+.contact-form__status { font-weight: 700; }
+.contact-form button[disabled] { opacity: 0.7; cursor: progress; transform: none; }
+.contact-form__success {
+  margin-top: 1.4rem;
+  padding: 1.4rem 1.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--gradient-soft);
+  border: 1px solid var(--line);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Event cards (templates/event-card.html) ------------------------------------
+   An optional photo carousel on top, then a title and short description.
+   The carousel is a scroll-snap strip, so it swipes and scrolls with no JS;
+   js/main.js adds arrows, dots, and arrow-key support when there are 2+ photos. */
+/* Two cards per row, one on phones. */
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
+}
+@media (max-width: 720px) {
+  .event-grid { grid-template-columns: 1fr; }
+}
+.event-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.event-card__body { padding: 1.4rem 1.5rem 1.6rem; }
+.event-card__title { font-size: 1.2rem; margin-bottom: 0.45rem; }
+.event-card__description { margin: 0; color: var(--ink-soft); font-size: 0.97rem; }
+
+.event-card__carousel { position: relative; background: var(--footer-bg); }
+.event-card__track {
+  display: flex;
+  aspect-ratio: 4 / 3;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.event-card__track::-webkit-scrollbar { display: none; }
+.event-card__track:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
+.event-card__slide {
+  flex: 0 0 100%;
+  margin: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+/* Photos fill the 4:3 frame; set object-position on an <img> to choose which
+   part of a tall or wide photo stays in view. */
+.event-card__slide img { width: 100%; height: 100%; object-fit: cover; }
+@media (prefers-reduced-motion: reduce) {
+  .event-card__track { scroll-behavior: auto; }
+}
+
+.event-card__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem; height: 2.5rem;
+  display: flex; align-items: center; justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(28, 20, 38, 0.72);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+.event-card__nav:hover { background: rgba(28, 20, 38, 0.92); }
+.event-card__nav:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.event-card__nav[disabled] { opacity: 0; pointer-events: none; }
+.event-card__nav--prev { left: 0.7rem; }
+.event-card__nav--next { right: 0.7rem; }
+.event-card__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 0.7rem;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.15rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 999px;
+  background: rgba(28, 20, 38, 0.55);
+}
+/* The dot is drawn small inside a larger button so it's easy to tap. */
+.event-card__dot {
+  width: 1.5rem; height: 1.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.event-card__dot::before {
+  content: "";
+  width: 0.5rem; height: 0.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.event-card__dot[aria-current="true"]::before { background: #fff; transform: scale(1.25); }
+.event-card__dot:focus-visible { outline: 2px solid #fff; outline-offset: -2px; border-radius: 50%; }
+
+/* Hero / CTA button rows and the Get Involved call to action ----------------- */
+.page-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+.card__cta { margin: auto 0 0; padding-top: 0.9rem; font-weight: 700; }
+.card__cta a { color: var(--accent); text-decoration: none; }
+.card__cta a:hover { color: var(--accent-hover); text-decoration: underline; }
+.cta-panel {
+  background: var(--gradient);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.cta-panel h2 { color: #fff; }
+.cta-panel p { max-width: 60ch; margin-inline: auto; color: rgba(255,255,255,0.94); }
+.cta-panel .page-jump { justify-content: center; }
+.cta-panel__email { margin: 1.4rem auto 0; font-size: 0.95rem; }
+.cta-panel__email a { color: #fff; font-weight: 700; }
 
 /* Land acknowledgment block --------------------------------------------------- */
 .land-ack {
@@ -874,6 +1140,8 @@ textarea { resize: vertical; min-height: 140px; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
 .site-footer a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.95rem; }
 .site-footer a:hover { color: #fff; text-decoration: underline; }
+.footer-social { display: inline-flex; align-items: center; gap: 0.45rem; }
+.footer-social__icon { flex: none; }
 .site-footer p { color: rgba(255,255,255,0.75); font-size: 0.93rem; }
 .footer-bottom {
   margin-top: 3rem;
