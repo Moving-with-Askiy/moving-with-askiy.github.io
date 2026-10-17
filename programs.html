@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Programs — Moving with Askiy</title>
-<meta name="description" content="Moving with Askiy is building land-based programs across Treaty 6 & 8 territory, designed to remove barriers to Indigenous outdoor participation.">
+<title>Events &amp; Programs — Moving with Askiy</title>
+<meta name="description" content="Upcoming events and land-based programs from Moving with Askiy across Treaty 6 &amp; 8 territory, designed to remove barriers to Indigenous outdoor participation.">
 <link rel="icon" href="images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=2026-10-17s">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -30,8 +30,9 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About Us</a></li>
-        <li><a href="programs.html">Programs</a></li>
-        <li><a href="events.html">Events</a></li>
+        <li><a href="programs.html">Events &amp; Programs</a></li>
+        <li><a href="get-involved.html">Get Involved</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
   </div>
@@ -39,25 +40,67 @@
 
 <main id="main">
 
-  <section class="page-hero">
+  <section class="page-hero page-hero--photo page-hero--programs">
     <div class="container">
-      <p class="eyebrow">Programs</p>
+      <p class="eyebrow">Events &amp; Programs</p>
       <h1>Land-based programs, open to everyone</h1>
       <p class="lede">Every activity we run will be designed to remove barriers &mdash; cost, transportation, experience, or confidence &mdash; so the only thing you need to bring is yourself.</p>
+      <nav class="page-jump" aria-label="On this page">
+        <a class="btn btn--on-dark" href="#events">Events</a>
+        <a class="btn btn--ghost-on-dark" href="#programs">Programs</a>
+      </nav>
     </div>
   </section>
 
-  <section class="section">
+  <!-- Events -------------------------------------------------------------- -->
+  <section class="section" id="events" aria-labelledby="events-title">
     <div class="container">
       <div class="section__head" data-reveal>
-        <p class="eyebrow eyebrow--dark">Coming Soon</p>
-        <h2>Building Our Program Lineup</h2>
-        <p>We're currently designing our land-based programs for Treaty 6 &amp; 8 territory in partnership with community and Knowledge Keepers.</p>
+        <h2 id="events-title" class="section-title">Events</h2>
+        <p>If you have any event ideas or just want to stay involved join the mailing list below, or <a href="contact.html?topic=programs">reach out</a> to hear when something is planned.</p>
       </div>
-      <div class="placeholder-note" data-reveal>
-        <strong>Placeholder content:</strong> This page is a basic structure for
-        now. Program details &mdash; activities, schedules, locations, and
-        accessibility information &mdash; will be added here once finalized.
+
+
+      <!-- Event cards go here, newest first. Copy a card from
+           templates/event-card.html (open it in a browser for instructions
+           and live examples). Once you add the first card, delete the
+           placeholder note above and update the heading. -->
+      <div class="event-grid">
+        <article class="event-card">
+          <div class="event-card__carousel" data-carousel aria-label="Photos from our weekly climbing night">
+            <div class="event-card__track">
+              <figure class="event-card__slide">
+                <img src="images/events/26272.jpeg" alt="wilson high wall group photo" loading="lazy" decoding="async" style="object-position: center 70%">
+              </figure>
+              <figure class="event-card__slide">
+                <img src="images/events/26335.jpeg" alt="blocs group photo" loading="lazy" decoding="async">
+              </figure>
+              <figure class="event-card__slide">
+                <img src="images/events/26411.jpeg" alt="wilson bouldering group photo" loading="lazy" decoding="async">
+              </figure>
+              <figure class="event-card__slide">
+                <img src="images/events/26482.jpeg" alt="wilson bouldering group photo" loading="lazy" decoding="async">
+              </figure>
+            </div>
+          </div>
+          <div class="event-card__body">
+            <h3 class="event-card__title">Weekly Climbing Session</h3>
+            <p class="event-card__description">Join us for a weekly climbing session in indoor climbing gyms across Edmonton. All skill levels welcome for bouldering, top rope or lead!</p>
+            <p class="event-card__description">Contact us <a href="contact.html?topic=programs">here</a> for updates on this event.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Programs ------------------------------------------------------------ -->
+  <section class="section" id="programs" aria-labelledby="programs-title">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <h2 id="programs-title" class="section-title">Programs</h2>
+        <h3 class="section-subtitle">Coming Soon: Building Our Program Lineup</h3>
+        <p>We're currently designing our land-based programs for Treaty 6 &amp; 8 territory.</p>
       </div>
     </div>
   </section>
@@ -114,14 +157,16 @@
         <h4>Explore</h4>
         <ul>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="programs.html">Programs</a></li>
-          <li><a href="events.html">Events</a></li>
+          <li><a href="programs.html">Events &amp; Programs</a></li>
+          <li><a href="get-involved.html">Get Involved</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div>
         <h4>Contact</h4>
         <ul>
           <li><a href="mailto:info@movingwithaskiy.com">info@movingwithaskiy.com</a></li>
+          <li><a class="footer-social" href="https://www.instagram.com/moving.with.askiy/" target="_blank" rel="noopener"><svg class="footer-social__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg><span>moving.with.askiy</span><span class="visually-hidden"> on Instagram (opens in a new tab)</span></a></li>
           <li>Treaty 6 &amp; 8 Territory</li>
         </ul>
       </div>
@@ -133,6 +178,6 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script src="js/main.js?v=2026-10-17o"></script>
 </body>
 </html>

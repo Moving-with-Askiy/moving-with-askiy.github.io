@@ -6,6 +6,8 @@
  *   - Validates everything again on the server; the browser check is only a courtesy.
  *   - Hands the signup to a PROVIDER, which stores it and makes sure the person
  *     gets a confirmation email. Only confirmed people should ever be emailed.
+ *   - Also receives the Contact page form (form=contact): emails the message to
+ *     CONTACT_TO and logs it in a "Contact messages" tab. See "Contact form" below.
  *
  * Providers (where signups go) — this is the part you swap when you outgrow Sheets
  *   "sheet"      Default. Saves rows in this Google Sheet and sends the
@@ -72,6 +74,9 @@ function doPost(e) {
   var p = (e && e.parameter) || {};
   rememberWebAppUrl();
 
+  // The contact page posts here too; its messages go to the team, not the list.
+  if (p.form === "contact") return handleContact(p);
+
   // Honeypot: real visitors never see this field, so anything in it is a bot.
   // Answer "ok" so the bot learns nothing.
   if (p.website) return respond({ ok: true });
@@ -120,6 +125,83 @@ function doGet(e) {
   return HtmlService.createHtmlOutput(
     '<div style="font-family:sans-serif;max-width:480px;margin:3rem auto;padding:0 1rem;line-height:1.5">' + html + "</div>"
   ).setTitle(ORG_NAME);
+}
+
+
+// ---- Contact form -------------------------------------------------------------
+// Messages from contact.html are emailed to CONTACT_TO (with Reply-To set to the
+// sender, so you can just hit Reply) and logged in the "Contact messages" tab.
+// Every reply includes form: "contact" so the website can tell this version of
+// the script apart from an older deployment that doesn't handle messages.
+
+var CONTACT_TO = REPLY_TO;
+var CONTACT_SHEET_NAME = "Contact messages";
+var CONTACT_HEADERS = ["Received", "Name", "Email", "Organization", "Topic", "Message", "Page"];
+var CONTACT_TOPICS = {
+  general: "General question",
+  programs: "Events & programs",
+  sponsorship: "Sponsorship",
+  partnership: "Community partnership",
+  volunteer: "Volunteering / sharing knowledge",
+  media: "Media"
+};
+
+function handleContact(p) {
+  var reply = function (obj) { obj.form = "contact"; return respond(obj); };
+
+  // Honeypot: pretend it worked so the bot learns nothing.
+  if (p.website) return reply({ ok: true });
+
+  var name = clean(p.name, 80);
+  var email = clean(p.email, 254).toLowerCase();
+  var organization = clean(p.organization, 120);
+  var topic = CONTACT_TOPICS[p.topic] || CONTACT_TOPICS.general;
+  var message = cleanMultiline(p.message, 5000);
+  if (!name) return reply({ ok: false, error: "Please enter your name." });
+  if (!EMAIL_RE.test(email)) return reply({ ok: false, error: "Please enter a valid email address so we can reply." });
+  if (!message) return reply({ ok: false, error: "Please write a message." });
+
+  try {
+    var lock = LockService.getScriptLock();
+    lock.waitLock(20000);
+    try {
+      getContactSheet().appendRow([new Date(), name, email, organization, topic, message, clean(p.page, 60)]);
+    } finally {
+      lock.releaseLock();
+    }
+    MailApp.sendEmail({
+      to: CONTACT_TO,
+      replyTo: email,
+      name: ORG_NAME + " website",
+      subject: "[Website] " + topic + " from " + name,
+      body:
+        "New message from the " + ORG_NAME + " contact form.\n\n" +
+        "Name: " + name + "\n" +
+        "Email: " + email + "\n" +
+        (organization ? "Organization: " + organization + "\n" : "") +
+        "Topic: " + topic + "\n\n" +
+        message + "\n\n" +
+        "Reply to this email to answer " + name + " directly."
+    });
+  } catch (err) {
+    console.error(err);
+    return reply({ ok: false, error: "Sorry, something went wrong. Please try again, or email " + REPLY_TO + "." });
+  }
+  return reply({ ok: true });
+}
+
+function getContactSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(CONTACT_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(CONTACT_SHEET_NAME);
+    sheet.appendRow(CONTACT_HEADERS);
+    sheet.setFrozenRows(1);
+    // Store everything people type as plain text so nothing runs as a formula.
+    sheet.getRange("B:G").setNumberFormat("@");
+    sheet.getRange("A:A").setNumberFormat("yyyy-mm-dd hh:mm:ss");
+  }
+  return sheet;
 }
 
 
@@ -384,6 +466,15 @@ function isoDate(value) {
 // Trim, drop control characters, and cap the length.
 function clean(value, maxLength) {
   return String(value || "").replace(/[ -]/g, " ").trim().slice(0, maxLength);
+}
+
+// Like clean(), but keeps line breaks and tabs (for message text).
+function cleanMultiline(value, maxLength) {
+  return String(value || "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/[\u0000-\u0008\u000B-\u001F\u007F]/g, " ")
+    .trim()
+    .slice(0, maxLength);
 }
 
 function respond(obj) {
